@@ -21,8 +21,12 @@ public class ContaBancaria {
         saldo = saldo.add(valor);
     }
 
-    public void sacar(BigDecimal valor) {
-        saldo = saldo.subtract(valor);
+    public void sacar(BigDecimal valor) throws Exception {
+        if (valor.compareTo(saldo) >= 0) {
+            throw new Exception("Saldo insuficiente");
+        } else {
+            saldo = saldo.subtract(valor);
+        }
     }
 
 }
