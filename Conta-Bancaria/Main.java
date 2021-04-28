@@ -12,19 +12,27 @@ public class Main {
     
             String nomeCorrentista;
             BigDecimal saldoAbertura;
+            long cpf;
+            long numeroConta;
             String operacao = "";
             BigDecimal deposito;
             BigDecimal saque;
             String tiposOperacoes = "Qual operação deseja realizar: \nC = consultar saldo \nD = depósito \nS = saque \nX = sair";
     
-            System.out.println("Para abrir sua conta, informe seu nome: ");
+            System.out.println("Para acessar sua conta, informe seu nome: ");
             nomeCorrentista = input.next();
+
+            System.out.println("Informe seu cpf: ");
+            cpf = input.nextLong();
+
+            System.out.println("Informe o número da sua conta: ");
+            numeroConta = input.nextLong();
             
             System.out.println("Informe o seu saldo inicial: ");
             saldoAbertura = input.nextBigDecimal();
             
-            System.out.printf("Bem-vindo(a) a sua conta %s \n", nomeCorrentista);
-            ContaBancaria contaBancaria = new ContaBancaria(nomeCorrentista, saldoAbertura);
+            System.out.printf("Bem-vindo(a) %s a sua conta de numero %d \n", nomeCorrentista, numeroConta);
+            ContaBancaria contaBancaria = new ContaBancaria(nomeCorrentista, saldoAbertura, cpf, numeroConta);
             
             System.out.println(tiposOperacoes);
             operacao = input.next();

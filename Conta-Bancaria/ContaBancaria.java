@@ -3,10 +3,14 @@ import java.math.BigDecimal;
 public class ContaBancaria {
     String correntista;
     BigDecimal saldo;
+    long cpf;
+    long numeroConta;
 
-    public ContaBancaria(String correntista, BigDecimal saldo) {
+    public ContaBancaria(String correntista, BigDecimal saldo, long cpf, long numeroConta) {
         this.correntista = correntista;
         this.saldo = saldo;
+        this.cpf = cpf;
+        this.numeroConta = numeroConta;
     }
 
     public BigDecimal getSaldo() {
