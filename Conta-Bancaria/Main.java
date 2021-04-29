@@ -11,13 +11,16 @@ public class Main {
             input.useLocale(Locale.forLanguageTag("en-US"));
     
             String nomeCorrentista;
-            BigDecimal saldoAbertura;
+            String nomeClienteTransferencia;
             long cpf;
+            long cpfClienteTranferencia;
             long numeroConta;
+            long numeroContaclienteTransferencia;
             String operacao = "";
             BigDecimal deposito;
             BigDecimal saque;
-            String tiposOperacoes = "Qual operação deseja realizar: \nC = consultar saldo \nD = depósito \nS = saque \nX = sair";
+            BigDecimal transferencia;
+            String tiposOperacoes = "Qual operação deseja realizar: \nC = consultar saldo \nD = depósito \nS = saque \nT = Transferir \nX = sair";
     
             System.out.println("Para acessar sua conta, informe seu nome: ");
             nomeCorrentista = input.next();
@@ -27,12 +30,11 @@ public class Main {
 
             System.out.println("Informe o número da sua conta: ");
             numeroConta = input.nextLong();
+
+            Cliente cliente = new Cliente(nomeCorrentista, cpf);
+            ContaBancaria contaBancaria = new ContaBancaria(cliente, numeroConta);
             
-            System.out.println("Informe o seu saldo inicial: ");
-            saldoAbertura = input.nextBigDecimal();
-            
-            System.out.printf("Bem-vindo(a) %s a sua conta de numero %d \n", nomeCorrentista, numeroConta);
-            ContaBancaria contaBancaria = new ContaBancaria(nomeCorrentista, saldoAbertura, cpf, numeroConta);
+            System.out.printf("Bem-vindo(a) %s a sua conta de numero %d \n", contaBancaria.getCliente().getCliente(), contaBancaria.getNumeroconta());
             
             System.out.println(tiposOperacoes);
             operacao = input.next();
@@ -56,8 +58,23 @@ public class Main {
                     System.out.printf("O valor sacado foi de R$ %s\n", saque);
                     System.out.println(tiposOperacoes);
                     operacao = input.next();
-                } else if (operacao.toUpperCase().equals("X")) {
-                    System.out.println("Obrigado pela preferência!");
+                } else if (operacao.toUpperCase().equals("T")) {
+                    System.out.println("Insira o valor a ser transferido: ");
+                    transferencia = input.nextBigDecimal();
+                    System.out.println("Nome do beneficiário: ");
+                    nomeClienteTransferencia = input.next();
+                    System.out.println("cpf do beneficiario: ");
+                    cpfClienteTranferencia = input.nextLong();
+                    System.out.println("numero da conta: ");
+                    numeroContaclienteTransferencia = input.nextLong();
+                    
+                    Cliente clienteDestino = new Cliente(nomeClienteTransferencia, cpfClienteTranferencia);
+                    ContaBancaria contaDestino = new ContaBancaria(clienteDestino, numeroContaclienteTransferencia);
+
+                    contaBancaria.transferir(transferencia, contaDestino);
+                    System.out.printf("O valor transferisdo foi de R$ %s \npara o cliente %s \n", transferencia, contaDestino.getCliente().getCliente());
+                    System.out.println(tiposOperacoes);
+                    operacao = input.next();
                 } else {
                     System.out.println("Comando não encontrado!\n");
                     System.out.println(tiposOperacoes);
